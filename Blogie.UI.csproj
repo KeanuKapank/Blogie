@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.35" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.2.1" />
+    <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="7.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Blogie.Admin.Data\Blogie.Admin.Data.csproj" />
+    <ProjectReference Include="..\Blogie.Auth\Blogie.Auth.csproj" />
+    <ProjectReference Include="..\Blogie.Blogger.Data\Blogie.Blogger.Data.csproj" />
+    <ProjectReference Include="..\Blogie.DataAccess\Blogie.DataAccess.csproj" />
+    <ProjectReference Include="..\Blogie.Home.Data\Blogie.Home.Data.csproj" />
+  </ItemGroup>
+
+</Project>

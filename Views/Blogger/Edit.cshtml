@@ -1,0 +1,22 @@
+﻿@model Blogie.UI.Models.ViewModel.PostCategory;
+<partial name="_Notification"/>
+<div class="d-flex flex-column justify-content-start align-content-start w-50 mx-auto my-3">
+    <h1 class="heading">Edit Post</h1>
+    <form asp-action="Edit" method="post" enctype="multipart/form-data">
+        <div asp-validation-summary="All"></div>
+        <input type="hidden" asp-for="Post.PostID"/>
+        <input type="text"
+               placeholder="Title"
+               class="d-block my-2 w-100 inputField" asp-for="Post.Title" />
+
+        @{
+            SelectList categories = new SelectList(Model.Categories, "CategoryID", "Description");
+        }
+        @Html.DropDownListFor(m => m.Post.CategoryID, categories, "Please select a Category", new { @class = "inputField", onchange = "handleChange(this)" })
+
+        @Html.TextAreaFor(m => m.Post.Description, new { @class = "mt-3", rows = "10", cols = "30" })
+        <label for="avatar" class="d-block">Add Thumbnail</label>
+        <input type="file" class="d-block my-2 w-100 inputField" name="file" asp-for="Post.Picture" />
+        <input type="submit" value="Edit Post" />
+    </form>
+</div>

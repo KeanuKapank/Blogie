@@ -1,0 +1,27 @@
+﻿@model Blogie.Home.Data.Models.AllPost
+@{
+    string imageBase64Picture = Convert.ToBase64String(Model.Picture);
+    string imageSrcPicture = $"data:image/jpeg;base64,{imageBase64Picture}";
+    string imageBase64Avatar = Convert.ToBase64String(Model.Avatar);
+    string imageSrcAvatar = $"data:image/jpeg;base64,{imageBase64Avatar}";
+}
+<section class="container my-5">
+    <div class="mx-auto w-75 p-5" id="post">
+        <div class="w-100 d-flex flex-column">
+            <h1>@Model.PostTitle <span class="category">@Model.PostCategory</span></h1>
+            <div id="authorInfo" class="d-flex flex-row my-3">
+                <img src="@imageSrcAvatar"
+                     alt=""
+                     class="img-thumbnail img-fluid avatar" />
+                <div class="d-flex flex-column">
+                    <h4>By: @Model.Username</h4>
+                    <h6>@Model.DatePosted</h6>
+                </div>
+            </div>
+            <img src="@imageSrcPicture" alt="Blog 1" class="w-100 h-50" />
+            <p style="font-size: 1.3rem;" class="py-3 fw-medium">
+                @Model.Description
+            </p>
+        </div>
+    </div>
+</section>

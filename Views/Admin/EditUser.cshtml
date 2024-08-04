@@ -1,0 +1,51 @@
+﻿@model Blogie.Auth.Models.User;
+
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <div id="SignInPage"
+         class="d-flex flex-column justify-content-start align-content-start">
+        <h1 class="heading">Edit User</h1>
+        <form asp-action="EditUser" enctype="multipart/form-data" method="post">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" asp-for="UserId"/>
+            <input type="text"
+                   asp-for="FirstName"
+                   placeholder="First Name"
+                   class="d-block my-2 w-100 inputField" type="hidden"/>
+            <input type="text"
+                   asp-for="LastName"
+                   placeholder="Last Name"
+                   class="d-block my-2 w-100 inputField" type="hidden"/>
+            <input type="text"
+                   asp-for="Username"
+                   placeholder="Username"
+                   class="d-block my-2 w-100 inputField" />
+            <input type="email"
+                   asp-for="Email"
+                   placeholder="Email"
+                   class="d-block my-2 w-100 inputField" />
+
+            <select name="role" id="role" class="" asp-for="Role">
+                <option value="">Select User Role</option>
+                <option value="Blogger">Blogger</option>
+                <option value="Admin">Admin</option>
+            </select>
+            <select name="Gender" asp-for="Gender" class="my-1">
+                <option value="">Select User Gender</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+                <option value="Female">Non-Binary</option>
+            </select>
+            <input type="date" class="d-block my-2 w-100 inputField" asp-for="DateOfBirth" disabled>
+            <input type="text" placeholder="From which Country are you" class="d-block my-2 w-100 inputField" asp-for="Country">
+            <label for="avatar" class="d-block">Profile Photo</label>
+            <input type="file" class="d-block my-2 w-100 inputField" name="file" asp-for="Avatar" />
+            
+            <input type="password"
+                   asp-for="Password"
+                   placeholder="Confirm Password"
+                   class="d-block my-2 w-100 inputField" hidden />
+            
+            <input type="submit" value="Edit User" class="d-block w-100" />
+        </form>
+    </div>
+</div>

@@ -1,0 +1,26 @@
+﻿@model Blogie.UI.Models.ViewModel.PostCategory;
+
+<div class="mx-auto mt-5">
+    <div class="d-flex flex-column justify-content-start align-content-start w-50 mx-auto">
+        <h1 class="heading">Add Post</h1>
+        <form asp-action="AddPost" method="post" enctype="multipart/form-data">
+            <div asp-validation-summary="All"></div>
+            <input type="text"
+                   placeholder="Title"
+                   class="d-block my-2 w-100 inputField" asp-for="Post.Title"/>
+
+            @{
+                SelectList categories = new SelectList(Model.Categories, "CategoryID", "Description");
+            }
+            @Html.DropDownListFor(m => m.Post.CategoryID, categories, "Please select a Category", new { @class = "inputField", onchange = "handleChange(this)" })
+
+            @* <textarea name="body" id="" cols="30" rows="10" class="mt-3" placeholder="Body..." asp-for="Post.Description">
+
+            </textarea> *@
+            @Html.TextAreaFor(m => m.Post.Description, new { @class = "mt-3", rows = "10", cols = "30" })
+            <label for="avatar" class="d-block">Add Thumbnail</label>
+            <input type="file" class="d-block my-2 w-100 inputField" name="file" asp-for="Post.Picture"/>
+            <input type="submit" value="Add Post" />
+        </form>
+    </div>
+</div>

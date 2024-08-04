@@ -1,0 +1,136 @@
+﻿@inject Blogie.UI.Services.IUserInfoService UserInfoService
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Blogie.UI</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
+          crossorigin="anonymous" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+</head>
+<body>
+    <nav class="navbar navbar-expand-lg">
+        <div class="container py-1">
+            <a class="navbar-brand" asp-controller="Home" asp-action="Index">Blogie</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent"
+                    aria-controls="navbarSupportedContent"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                
+                    <ul class="navbar-nav ms-auto mb-2 mb-lg-0 d-flex justify-content-center align-items-center">
+                        <li class="nav-item px-3">
+                        <a aria-current="page" asp-controller="Home" asp-action="Index">Blog</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a href="#">About</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a href="#">Services</a>
+                        </li>
+                        <li class="nav-item px-3">
+                            <a href="#">Contact Us</a>
+                        </li>
+                        
+                        @{
+                            if (User.Identity.IsAuthenticated)
+                            {
+                                <li class="nav-item px-3 avatarItem">
+                                @{
+                                    string imageBase64 = await UserInfoService.GetAvatar();
+                                    string imageSrc = $"data:image/jpeg;base64,{imageBase64}";
+                                }
+
+                                <a href="#">
+                                        <img src="@imageSrc"
+                                             alt="Avatar 1"
+                                             srcset=""
+                                             class="navAvatar" />
+                                    </a>
+                                <ul class="" id="navDropdown">
+                                    @if(UserInfoService.GetRole() == "Blogger")
+                                    {
+                                        <li><a asp-action="Index" asp-controller="Blogger">Dashboard</a></li> 
+                                    }
+                                    else
+                                    {
+                                        <li><a asp-action="Index" asp-controller="Admin">Dashboard</a></li>
+                                    }
+                                    <li><a asp-action="Logout" asp-controller="Home">Logout</a></li>
+                                </ul>
+                            </li>
+                             }else{
+                                <li><a asp-action="Login" asp-controller="Home">Login</a></li>
+                             }
+                        }
+                        
+                    
+                    </ul>
+            </div>
+        </div>
+    </nav>
+
+    
+     @RenderBody()
+   
+    <footer class="container-fluid p-5 mt-5 text-center mb-0">
+        <div class="d-flex flex-column justify-content-between align-items-center">
+            <div class="text-center p-4 mx-auto">
+                <span class="mediaIcons p-2 mx-2 fs-5"><i class="bi bi-linkedin"></i></span>
+                <span class="mediaIcons p-2 mx-2 fs-5"><i class="bi bi-twitter-x"></i></span>
+                <span class="mediaIcons p-2 mx-2 fs-5"><i class="bi bi-messenger"></i></span>
+                <span class="mediaIcons p-2 mx-2 fs-5"><i class="bi bi-facebook"></i></span>
+                <span class="mediaIcons p-2 mx-2 fs-5"><i class="bi bi-youtube"></i></span>
+            </div>
+            <div class="d-flex flex-row justify-content-between w-50 my-3">
+                <div class="d-flex flex-column justify-content-between">
+                    <h4 class="fw-bolder">Categories</h4>
+                    <h6>Business</h6>
+                    <h6>Investment</h6>
+                    <h6>Entertainment</h6>
+                    <h6>Weather</h6>
+                    <h6>Sports</h6>
+                </div>
+                <div class="d-flex flex-column align-content-center">
+                    <h4 class="fw-bolder">Support</h4>
+                    <h6>Online Support</h6>
+                    <h6>Call Numbers</h6>
+                    <h6>Emails</h6>
+                    <h6>Social Support</h6>
+                    <h6>Location</h6>
+                </div>
+                <div class="d-flex flex-column align-content-center">
+                    <h4 class="fw-bolder">Blog</h4>
+                    <h6>Safety</h6>
+                    <h6>Repair</h6>
+                    <h6>Recent</h6>
+                    <h6>Policy</h6>
+                    <h6>Rules & Regulations</h6>
+                </div>
+                <div class="d-flex flex-column align-content-center">
+                    <h4 class="fw-bolder">Permalinks</h4>
+                    <h6>Home</h6>
+                    <h6>Blog</h6>
+                    <h6>About</h6>
+                    <h6>Services</h6>
+                    <h6>Contact</h6>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,147 @@
+﻿
+@model IEnumerable<Blogie.Home.Data.Models.AllPost>
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+<!--All Post-->
+@{
+    if (Model != null){
+        <section id="feuturedPost" class="container my-5">
+            <div class="row g-5">
+        @foreach(var post in Model.Where(p => p.IsFeatured == true))
+        {
+            string imageBase64Picture = Convert.ToBase64String(post.Picture);
+            string imageSrcPicture = $"data:image/jpeg;base64,{imageBase64Picture}";
+            string imageBase64Avatar = Convert.ToBase64String(post.Avatar);
+            string imageSrcAvatar = $"data:image/jpeg;base64,{imageBase64Avatar}";
+            
+                <!-- Feutured Post -->
+                
+                        <div class="col-md-6 col-12">
+                            <div class="w-100 h-100 imgContainer">
+                                <img src="@imageSrcPicture"
+                                alt="Blog 1"
+                                srcset=""
+                                 class="imgFeature" />
+                                <i class="bi bi-heart-fill popup"></i>
+                            </div>
+                        </div>
+                        <div class="col-md-6 col-12">
+                            <div class="category">@post.PostCategory</div>
+                            <h2 class="title">
+                                @post.PostTitle
+                            </h2>
+                            <p>
+                            @{
+                                int counter = 0;
+                                foreach (var word in post.Description.Split())
+                                {
+                                    if (counter == 120)
+                                    {
+                                        break;
+                                    }
+                                    counter++;
+                                    <print>@word</print>
+                                }
+                            }
+                            <a asp-action="PostDetail" asp-controller="Home" asp-route-id="@post.PostID" class="d-inline">Read More ...</a>
+                            </p>
+                            <div class="d-flex align-items-center d-row">
+                                <img src="@imageSrcAvatar"
+                                alt="Avatar 1"
+                                srcset=""
+                                class="avatar img-fluid img-thumbnail" />
+                                <div class="">
+                                    <p class="username m-0">@post.Username</p>
+                                    <p class="datePosted m-0">@post.DatePosted</p>
+                                </div>
+
+                                <div class="noOfLikesSection ms-auto fs-3">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-action="LikePost" asp-controller="Home" asp-route-id="@post.PostID" class="heartPost"><i class="bi bi-heart likeIcon"></i></a> <span class="noOfLikes">@post.NoOfLikes</span>
+                                }
+                                else{
+
+                                    <a asp-action="Login" asp-controller="Home" class="heartPost"><i class="bi bi-heart likeIcon"></i></a> <span class="noOfLikes">@post.NoOfLikes</span>
+
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    
+            }
+            </div>
+        </section>
+        <section id="allPost" class="container">
+            <div class="row">
+            @foreach(var post in Model.Where(p => p.IsFeatured == false))
+            {
+                    string imageBase64Picture = Convert.ToBase64String(post.Picture);
+                    string imageSrcPicture = $"data:image/jpeg;base64,{imageBase64Picture}";
+                    string imageBase64Avatar = Convert.ToBase64String(post.Avatar);
+                    string imageSrcAvatar = $"data:image/jpeg;base64,{imageBase64Avatar}";
+                <!--All Post-->
+                    
+                        <div class="col-md-4 col-12 my-md-0 my-2 my-2">
+                          <img
+                            src="@imageSrcPicture"
+                            alt="Blog 10"
+                            srcset=""
+                             class="imgAllPost"
+                          />
+                          <div class="category mt-2 mb-0">@post.PostCategory</div>
+                          <h2 class="title m-1" style="font-size: 1.3rem;">@post.PostTitle</h2>
+                          <p style="font-size: 0.8rem; margin: 0;">
+                                @{
+                                    int counter = 0;
+                                    foreach (var word in post.Description.Split())
+                                    {
+                                        if (counter == 60)
+                                        {
+                                            break;
+                                        }
+                                        counter++;
+                                        <print>@word</print>
+                                    }
+                                }
+                            <a asp-action="PostDetail" asp-controller="Home" asp-route-id="@post.PostID" class="d-inline">Read More ...</a>
+                                
+                          </p>
+                        <div class="d-flex align-items-center d-row" style="margin-top: auto;">
+                            <img
+                              src="@imageSrcAvatar"
+                              alt="Avatar 1"
+                              srcset=""
+                              class="avatar img-fluid img-thumbnail"
+                              style="width: 2.5rem; height: 2.5rem;"
+                            />
+                            <div class="">
+                              <p class="username m-0">@post.Username</p>
+                              <p class="datePosted m-0">@post.DatePosted</p>
+                            </div>
+                            <div class="noOfLikesSection ms-auto fs-4">
+                                @if (User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-action="LikePost" asp-controller="Home" asp-route-id="@post.PostID" class="heartPost"><i class="bi bi-heart likeIcon"></i></a> <span class="noOfLikes">@post.NoOfLikes</span>
+                                }
+                                else
+                                {
+
+                                    <a asp-action="Login" asp-controller="Home" class="heartPost"><i class="bi bi-heart likeIcon"></i></a> <span class="noOfLikes">@post.NoOfLikes</span>
+
+                                }
+                            </div>
+                          </div>
+                         </div>
+                      
+            }
+            </div>
+        </section>
+        
+    }
+}
+

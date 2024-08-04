@@ -1,0 +1,16 @@
+﻿@model Blogie.Blogger.Data.Models.Category
+<div class="d-flex flex-column justify-content-center align-items-center vh-100">
+    <div id="SignInPage"
+         class="d-flex flex-column justify-content-start align-content-start">
+        <h1 class="heading">Edit Category</h1>
+        <form asp-action="EditCategory" method="post">
+            <input type="hidden" asp-for="CategoryID"/>
+            <input type="text"
+                   asp-for="Description"
+                   placeholder="Description"
+                   class="d-block my-2 w-100 inputField" />
+            <span asp-validation-for="Description"></span>
+            <input type="submit" value="Edit Category" />
+        </form>
+    </div>
+</div>
